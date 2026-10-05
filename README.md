@@ -64,20 +64,23 @@ It focuses on:
 - Frozen Excel headings
 - Readable column widths
 - Formatted revenue values
-
 ## Screenshots
 
-> Screenshots will be added here.
+### Dashboard
 
-<!--
-Example:
+![Dashboard](overview.png)
 
-![Dashboard](screenshots/dashboard.png)
+### Transaction Management
 
-![Reports](screenshots/reports.png)
+![New Transaction](new_transaction.png)
 
-![Service Management](screenshots/services.png)
--->
+### Service Management
+
+![Service Management](services.png)
+
+### Reports & Analytics
+
+![Reports](reports.png)
 
 ## Technology Stack
 
