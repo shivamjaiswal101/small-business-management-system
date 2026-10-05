@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+business_manager.sqlite3
+business_manager.sqlite3-shm
+business_manager.sqlite3-wal
+.venv/
