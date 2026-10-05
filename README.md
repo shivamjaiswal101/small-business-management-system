@@ -1,89 +1,132 @@
-# Business Manager
+# Business Management System
 
-A local, generic business management desktop app for a small business. Business
-names and service catalogs are stored in SQLite as data; the application has no
-industry-specific defaults.
+A Python-based desktop application for managing business services, transactions, revenue, and reports through a local SQLite database.
 
-## Run
+The system provides a complete workflow for setting up a business, managing its service catalog, recording transactions, analyzing revenue, and exporting reports in CSV and Excel formats.
 
-Requires Python 3.10 or newer. It uses the Python standard library only
-(Tkinter is included with most desktop Python installations).
+## Overview
 
-```powershell
-python main.py
-```
+This project was built as a practical business management system rather than a simple CRUD application.
 
-On first launch, enter a business name and add at least one service. Then the
-app opens the dashboard. Its SQLite database is created next to `main.py` as
-`business_manager.sqlite3`.
+It focuses on:
 
-Configuration commands update the database:
+- Structured SQLite database design
+- Transaction and service management
+- Revenue and payment analysis
+- Date-based reporting
+- CSV and Excel report generation
+- Data validation and historical consistency
+- A dependency-free desktop interface using Tkinter
+- Automated unit testing for core business logic
 
-```powershell
-python main.py business
-python main.py business set "ABC Salon"
-python main.py service add "Haircut"
-python main.py service list
-python main.py service edit 1 "Premium Haircut"
-python main.py service remove 1
-python main.py service activate 1
-```
+## Key Features
 
-`service remove` deactivates the service. It does not delete it or its history.
+### Business Setup
+- First-run business configuration
+- Business name management
+- Business-specific service catalog
 
-Run the core logic tests with:
+### Service Management
+- Add new services
+- Edit existing services
+- Activate or deactivate services
+- Preserve historical transaction data when services are renamed
+- Store custom services directly from the transaction workflow
 
-```powershell
-python -m unittest discover -s tests -v
-```
+### Transaction Management
+- Record transactions with:
+  - Service
+  - Amount
+  - Payment method
+  - Transaction ID
+  - Timestamp
+- Supports Cash and Online payments
+- Validates transaction amounts
+- Automatically generates transaction IDs
+- Maintains transaction history
 
-## Version 2 updates
+### Dashboard & Search
+- View daily transactions
+- Search transactions by:
+  - Transaction ID
+  - Service
+  - Payment method
+  - Date
+- Select a specific date using the calendar interface
+- View revenue totals for the selected date
 
-- Refined desktop interface with a dark navigation rail, workspace profile, KPI
-  cards, and consistent page layouts.
-- Click the date fields directly to open a calendar; choose a month or year, or
-  pick a day. Overview totals and transactions filter to the chosen day.
-- Formatted Excel `.xlsx` report export with readable column widths, formatted
-  revenue cells, frozen headings, and a service breakdown. CSV export remains
-  available for data exchange; CSV itself cannot save column widths or styles.
+### Reporting & Analytics
+- Date-range revenue analysis
+- Cash vs Online revenue
+- Service-wise revenue breakdown
+- CSV export
+- Formatted Excel `.xlsx` export
+- Frozen Excel headings
+- Readable column widths
+- Formatted revenue values
 
-## Features
+## Screenshots
 
-- First-run business setup and business name settings.
-- Service add, edit, deactivate, and activate operations.
-- Transactions with an active service, positive amount, fixed Cash/Online
-  payment type, generated ID, and automatic timestamp. The service field can
-  use the dropdown or a custom name, which is saved to the catalog.
-- Dashboard with today's transactions and a search across transaction ID,
-  service, payment type, and date. Use the calendar control to view any day's
-  transactions and totals in the same dashboard.
-- Date-range totals, cash/online revenue, service breakdown, and CSV/XLSX export.
-- CLI commands for business name and service configuration.
+> Screenshots will be added here.
 
-## Structure
+<!--
+Example:
 
-- `database.py` — SQLite schema, foreign-key enforcement, connection handling.
-- `business.py` — first-run setup and business name read/update.
-- `services.py` — business-scoped service operations and soft deactivation.
-- `transactions.py` — amount validation, transaction IDs, timestamps, history.
-- `reports.py` — date-filtered SQL aggregation and CSV/XLSX export.
-- `cli.py` — configuration command parser and handlers.
-- `ui.py` — Tkinter setup and the dashboard, service, report, and settings screens.
-- `main.py` — application and CLI entry point.
-- `tests/` — standard-library unit tests for core data operations.
+![Dashboard](screenshots/dashboard.png)
 
-## Data and implementation decisions
+![Reports](screenshots/reports.png)
 
-SQLite foreign keys are enabled for every connection, queries use SQL
-parameters, and referenced records cannot be deleted. A transaction stores
-both the service foreign key and a service-name snapshot, so renaming a service
-does not alter history. Services are soft-deactivated.
+![Service Management](screenshots/services.png)
+-->
 
-Amounts are stored as integer hundredths to avoid floating-point rounding.
-Timestamps are stored in UTC and report date ranges use the computer's local
-calendar. Payments are constrained to Cash and Online. SQL handles the report
-aggregations directly; Pandas would add a dependency without helping this small
-reporting workload.
+## Technology Stack
 
-The UI uses Tkinter to keep the local desktop app dependency-free. The database
-records carry a business ID, while Version 1 presents a single business setup.
+| Technology | Purpose |
+|---|---|
+| Python | Application logic |
+| Tkinter | Desktop user interface |
+| SQLite | Local database |
+| SQL | Data storage and reporting queries |
+| CSV | Data export |
+| Excel (.xlsx) | Formatted report export |
+| unittest | Automated testing |
+
+The application uses Python's standard library and does not require external packages for its core functionality.
+
+## Project Architecture
+
+```text
+Business Management System
+│
+├── main.py
+│   └── Application and CLI entry point
+│
+├── ui.py
+│   └── Tkinter interface and application screens
+│
+├── database.py
+│   └── SQLite connection, schema and database handling
+│
+├── business.py
+│   └── Business setup and configuration
+│
+├── services.py
+│   └── Service catalog operations
+│
+├── transactions.py
+│   └── Transaction creation and validation
+│
+├── reports.py
+│   └── Revenue analysis and report exports
+│
+├── cli.py
+│   └── Command-line configuration interface
+│
+├── tests/
+│   └── Unit tests for core business logic
+│
+├── .gitignore
+│   └── Files excluded from version control
+│
+└── README.md
+    └── Project documentation
